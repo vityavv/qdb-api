@@ -1,7 +1,7 @@
 {
 	"name": "qdb-api",
 	"description": "An API wrapper for Quote Database",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"main": "src/qdb-api.js",
 	"author": "Mark Njung'e",
 	"license": "MIT",
@@ -9,7 +9,13 @@
 		"type": "git",
 		"url": "https://github.com/MarkNjunge/qdb-api"
 	},
-	"keywords": ["bash.org", "qdb", "quote database", "api", "wrapper"],
+	"keywords": [
+		"bash.org",
+		"qdb",
+		"quote database",
+		"api",
+		"wrapper"
+	],
 	"contributors": [
 		{
 			"name": "Mark Njung'e",
