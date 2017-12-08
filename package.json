@@ -5,6 +5,10 @@
 	"main": "src/qdb-api.js",
 	"author": "Mark Njung'e",
 	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/MarkNjunge/qdb-api"
+	},
 	"keywords": ["bash.org", "qdb", "quote database", "api", "wrapper"],
 	"contributors": [
 		{
