@@ -2,6 +2,8 @@
 
 An API wrapper for [Quote Database](http://bash.org/).
 
+`npm install qdb-api`
+
 ```Javascript
 const qdb = require('qdb-api')
 ```
