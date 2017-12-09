@@ -1,7 +1,7 @@
 {
 	"name": "qdb-api",
 	"description": "An API wrapper for Quote Database",
-	"version": "1.0.1",
+	"version": "1.0.2",
 	"main": "src/qdb-api.js",
 	"author": "Mark Njung'e",
 	"license": "MIT",
