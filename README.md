@@ -1,5 +1,7 @@
 # qdb-api
 
+[![NPM](https://nodei.co/npm/qdb-api.png)](https://npmjs.org/package/qdb-api)
+
 An API wrapper for [Quote Database](http://bash.org/).
 
 `npm install qdb-api`
