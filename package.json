@@ -10,9 +10,12 @@
 		"url": "https://github.com/MarkNjunge/qdb-api"
 	},
 	"keywords": [
+		"bash",
 		"bash.org",
-		"qdb",
+		"quotes",
 		"quote database",
+		"irc",
+		"qdb",
 		"api",
 		"wrapper"
 	],
