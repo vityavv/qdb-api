@@ -4,6 +4,8 @@
 
 An API wrapper for [Quote Database](http://bash.org/).
 
+Looking for a REST API? See [qdb-rest-api](https://github.com/MarkNjunge/qdb-rest-api)
+
 `npm install qdb-api`
 
 ```Javascript
