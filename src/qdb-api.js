@@ -7,6 +7,7 @@ function get(options) {
 		try {
 			http.get(options, (response) => {
 				let data = '';
+				response.setEncoding('utf8');
 				response.on('data', (chunk) => {data += chunk});
 				response.on('end', () => {
 					resolve(data);
