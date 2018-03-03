@@ -1,12 +1,28 @@
-const axios = require('axios').default;
+/*const axios = require('axios').default;*/
+const http = require('http');
 const cheerio = require('cheerio');
+
+function get(options) {
+	return new Promise((resolve, reject) => {
+		try {
+			http.get(options, (response) => {
+				let data = '';
+				response.on('data', (chunk) => {data += chunk});
+				response.on('end', () => {
+					resolve(data);
+				});
+			});
+		} catch (e) {
+			reject(e)
+		}
+	});
+}
 
 function getQuote(id) {
 	return new Promise((resolve, reject) => {
-		axios
-			.get(`http://bash.org/?${id}`)
+		get(`http://bash.org/?${id}`)
 			.then(response => {
-				const $ = cheerio.load(response.data);
+				const $ = cheerio.load(response);
 
 				const quote = {
 					id: $('.quote a b')
@@ -24,10 +40,9 @@ function getQuote(id) {
 
 function getRandomId() {
 	return new Promise((resolve, reject) => {
-		axios
-			.get('http://bash.org/?random')
+		get('http://bash.org/?random')
 			.then(response => {
-				const $ = cheerio.load(response.data);
+				const $ = cheerio.load(response);
 
 				const id = $('.quote a b')
 					.first()
@@ -42,10 +57,9 @@ function getRandomId() {
 
 function getLatestId() {
 	return new Promise((resolve, reject) => {
-		axios
-			.get('http://bash.org/?latest')
+		get('http://bash.org/?latest')
 			.then(response => {
-				const $ = cheerio.load(response.data);
+				const $ = cheerio.load(response);
 
 				const id = $('.quote a b')
 					.first()
@@ -65,10 +79,9 @@ function getLatestId() {
  */
 function search(query, sort, count) {
 	return new Promise((resolve, reject) => {
-		axios
-			.get(`http://bash.org/?search=${query}&sort=${sort}&show=${count}`)
+		get(`http://bash.org/?search=${query}&sort=${sort}&show=${count}`)
 			.then(response => {
-				const $ = cheerio.load(response.data);
+				const $ = cheerio.load(response);
 
 				const quotes = [];
 
@@ -111,8 +124,14 @@ module.exports = {
 	get: id => {
 		return getQuote(id);
 	},
+	randomID: () => {
+		return getRandomId();
+	},
 	random: () => {
 		return getRandomId().then(id => getQuote(id));
+	},
+	latestID: () => {
+		return getLatestId();
 	},
 	latest: () => {
 		return getLatestId().then(id => getQuote(id));
