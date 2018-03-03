@@ -7,7 +7,7 @@ function get(options) {
 		try {
 			http.get(options, (response) => {
 				let data = '';
-				response.setEncoding('utf8');
+				response.setEncoding('ascii');
 				response.on('data', (chunk) => {data += chunk});
 				response.on('end', () => {
 					resolve(data);
@@ -76,10 +76,15 @@ function getLatestId() {
  *
  * @param {String} query The search word
  * @param {Number} sort 0 for score, 1 for number
- * @param {Number} count 10, 25, 50, 75 or 100
+ * @param {Number} count 1, 10, 25, 50, 75 or 100
  */
 function search(query, sort, count) {
 	return new Promise((resolve, reject) => {
+		let showone = false;
+		if (count === 1) {
+			showone = true;
+			count = 10;
+		}
 		get(`http://bash.org/?search=${query}&sort=${sort}&show=${count}`)
 			.then(response => {
 				const $ = cheerio.load(response);
@@ -113,8 +118,8 @@ function search(query, sort, count) {
 							}
 						});
 					});
-
-					resolve(quotes);
+					if (showone) resolve(quotes[0]);
+					else resolve(quotes);
 				}
 			})
 			.catch(reason => reject(reason));
