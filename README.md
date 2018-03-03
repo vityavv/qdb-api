@@ -17,7 +17,7 @@ const qdb = require('qdb-api-plus')
 * qdb-api-plus has a couple more methods like `latestID` and `randomID`
 * You can get the first search result with qdb-api-plus
 
-## APIs available
+## Methods available
 
 * Get a random quote or a random ID
 * Get the latest quote or it's ID
@@ -25,7 +25,7 @@ const qdb = require('qdb-api-plus')
 * Search for a quote
 
 ### Get a random quote
-
+Example:
 ```Javascript
 qdb.random()
 	.then(quote => {
@@ -39,7 +39,7 @@ qdb.random()
 ```
 
 ### Get a random quote ID
-
+Example:
 ```Javascript
 qdb.randomID()
 	.then(id => {
@@ -51,7 +51,7 @@ qdb.randomID()
 ```
 
 ### Get the latest quote
-
+Example:
 ```Javascript
 qdb.latest()
 	.then(quote => {
@@ -65,7 +65,7 @@ qdb.latest()
 ```
 
 ### Get the latest quote ID
-
+Example:
 ```Javascript
 qdb.latest()
 	.then(id => {
@@ -77,7 +77,11 @@ qdb.latest()
 ```
 
 ### Get a specific quote by its ID
-#### `ID number`
+**Parameters**
+
+* `ID number`
+
+Example:
 ```Javascript
 qdb.get(4680)
 	.then(quote => {
@@ -91,9 +95,16 @@ qdb.get(4680)
 ```
 
 ### Search for a quote
-#### `Search string`
-#### `Sort by` - `0` for score, `1` for number
-#### `Number of results` - `10`, `25`, `50`, `75`, or `100`
+
+**Parameters**
+
+* `Search string`
+* `Sort by` - `0` for score, `1` for number
+* `Number of results` - `1`, `10`, `25`, `50`, `75`, or `100`
+
+**Returns** a quote if Sort By is 1, and an array of quotes otherwise
+
+Example:
 ```Javascript
 qdb.search('tom', 0, 10)
 	.then(quotes => {
@@ -107,6 +118,18 @@ qdb.search('tom', 0, 10)
 		console.log(reason);
 	});
 ```
+
+## How it works
+First, the program gets a specific bash.org website:
+
+```Javascript
+`http://bash.org/?${id}` //Get specific ID
+'http://bash.org/?latest' //Latest quote/ID
+'http://bash.org/?random' //Random quote/ID
+`http://bash.org/?search=${query}&sort=${sort}&show=${count}` //Search
+```
+
+Then, it uses `cheerio` to scrape the page for the quote text, the votes, and the ID.
 
 # Disclaimer
 
