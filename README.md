@@ -1,21 +1,26 @@
-# qdb-api [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2FMarkNjunge%2Fqdb-api.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2FMarkNjunge%2Fqdb-api?ref=badge_shield)
+# qdb-api-plus
 
-[![NPM](https://nodei.co/npm/qdb-api.png)](https://npmjs.org/package/qdb-api)
-
-An API wrapper for [Quote Database](http://bash.org/).
+A better API wrapper for [Quote Database](http://bash.org/). Fork of [qdb-api](https://github.com/MarkNjunge/qdb-api).
 
 Looking for a REST API? See [qdb-rest-api](https://github.com/MarkNjunge/qdb-rest-api)
 
-`npm install qdb-api`
+`npm install qdb-api-plus`
 
 ```Javascript
-const qdb = require('qdb-api')
+const qdb = require('qdb-api-plus')
 ```
+
+## qdb-api vs qdb-api-plus
+
+* qdb-api-plus doesn't use `axios`
+* qdb-api-plus has *slightly* better documentation
+* qdb-api-plus has a couple more methods like `latestID` and `randomID`
+* You can get the first search result with qdb-api-plus
 
 ## APIs available
 
-* Get a random quote
-* Get the latest quote
+* Get a random quote or a random ID
+* Get the latest quote or it's ID
 * Get specific quote by it's id
 * Search for a quote
 
@@ -27,6 +32,18 @@ qdb.random()
 		console.log(quote.id);
 		console.log(quote.score);
 		console.log(quote.text);
+	})
+	.catch(reason => {
+		console.log(reason);
+	});
+```
+
+### Get a random quote ID
+
+```Javascript
+qdb.randomID()
+	.then(id => {
+		console.log(id);
 	})
 	.catch(reason => {
 		console.log(reason);
@@ -47,8 +64,20 @@ qdb.latest()
 	});
 ```
 
-### Get a specific quote by it's id
+### Get the latest quote ID
 
+```Javascript
+qdb.latest()
+	.then(id => {
+		console.log(id);
+	})
+	.catch(reason => {
+		console.log(reason);
+	});
+```
+
+### Get a specific quote by its ID
+#### `ID number`
 ```Javascript
 qdb.get(4680)
 	.then(quote => {
@@ -62,7 +91,9 @@ qdb.get(4680)
 ```
 
 ### Search for a quote
-
+#### `Search string`
+#### `Sort by` - `0` for score, `1` for number
+#### `Number of results` - `10`, `25`, `50`, `75`, or `100`
 ```Javascript
 qdb.search('tom', 0, 10)
 	.then(quotes => {

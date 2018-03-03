@@ -1,13 +1,13 @@
 {
 	"name": "qdb-api",
-	"description": "An API wrapper for Quote Database",
+	"description": "A better API wrapper for Quote Database",
 	"version": "1.0.2",
 	"main": "src/qdb-api.js",
-	"author": "Mark Njung'e",
+	"author": "Victor Veytsman",
 	"license": "MIT",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/MarkNjunge/qdb-api"
+		"url": "https://github.com/vityavv/qdb-api-plus"
 	},
 	"keywords": [
 		"bash",
@@ -24,6 +24,11 @@
 			"name": "Mark Njung'e",
 			"email": "mark.kamau@outlook.com",
 			"url": "marknkamau.com"
+		},
+		{
+			"name": "Victor Veytsman",
+			"email": "vityavv@gmail.com",
+			"url": "vvvland.ml"
 		}
 	],
 	"dependencies": {
