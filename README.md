@@ -102,7 +102,7 @@ qdb.get(4680)
 * `Sort by` - `0` for score, `1` for number
 * `Number of results` - `1`, `10`, `25`, `50`, `75`, or `100`
 
-**Returns** a quote if Sort By is 1, and an array of quotes otherwise
+**Returns** a quote if `Number of results` is 1, and an array of quotes otherwise
 
 Example:
 ```Javascript
