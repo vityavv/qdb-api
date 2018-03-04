@@ -67,7 +67,7 @@ qdb.latest()
 ### Get the latest quote ID
 Example:
 ```Javascript
-qdb.latest()
+qdb.latestID()
 	.then(id => {
 		console.log(id);
 	})
