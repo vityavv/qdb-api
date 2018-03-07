@@ -38,39 +38,17 @@ function getQuote(id) {
 			.catch(reason => reject(reason));
 	});
 }
-
-function getRandomId() {
-	return new Promise((resolve, reject) => {
-		get('http://bash.org/?random')
-			.then(response => {
-				const $ = cheerio.load(response);
-
-				const id = $('.quote a b')
-					.first()
-					.text()
-					.substring(1);
-
-				resolve(id);
-			})
-			.catch(reason => reject(reason));
-	});
+function random(count = 1) {
+	return parseQuotes(count, 'http://bash.org/?random', 50);
 }
-
+function getRandomId() {
+	return getFirstId('http://bash.org/?random');
+}
+function latest(count = 1) {
+	return parseQuotes(count, 'http://bash.org/?latest', 50);
+}
 function getLatestId() {
-	return new Promise((resolve, reject) => {
-		get('http://bash.org/?latest')
-			.then(response => {
-				const $ = cheerio.load(response);
-
-				const id = $('.quote a b')
-					.first()
-					.text()
-					.substring(1);
-
-				resolve(id);
-			})
-			.catch(reason => reject(reason));
-	});
+	return getFirstId('http://bash.org/?latest');
 }
 /**
  *
@@ -79,27 +57,28 @@ function getLatestId() {
  * @param {Number} count 1, 10, 25, 50, 75 or 100
  */
 function search(query, sort, count) {
+	let showcount = count;
+	if (count <= 10) count = 10;
+	else if (count <= 25) count = 25;
+	else if (count <= 50) count = 50;
+	else if (count <= 75) count = 75;
+	else if (count <= 100) count = 100;
+	return parseQuotes(count, `http://bash.org/?search=${query}&sort=${sort}&show=${count}`, 100);
+}
+
+function parseQuotes(count, url, max) {
 	return new Promise((resolve, reject) => {
-		let showcount = count;
-		if (count <= 10) count = 10;
-		else if (count <= 25) count = 25;
-		else if (count <= 50) count = 50;
-		else if (count <= 75) count = 75;
-		else if (count <= 100) count = 100;
-		else reject("Too many to search");
-		get(`http://bash.org/?search=${query}&sort=${sort}&show=${count}`)
+		if (count > max) reject("You took too many!");
+		get(url)
 			.then(response => {
 				const $ = cheerio.load(response);
 
 				const quotes = [];
-
-				/* eslint-disable */
 				if (
 					$('center font')
 						.text()
 						.includes('No results')
 				) {
-					/* eslint-enable */
 					reject('No results returned.');
 				} else {
 					$('.quote a b').each((i, element) => {
@@ -120,13 +99,27 @@ function search(query, sort, count) {
 							}
 						});
 					});
-					resolve(quotes.slice(0, showcount));
+					resolve(quotes.slice(0, count));
 				}
+			}).catch(reason => reject(reason));
+	});
+}
+function getFirstId(url) {
+	return new Promise((resolve, reject) => {
+		get(url)
+			.then(response => {
+				const $ = cheerio.load(response);
+
+				const id = $('.quote a b')
+					.first()
+					.text()
+					.substring(1);
+
+				resolve(id);
 			})
 			.catch(reason => reject(reason));
 	});
 }
-
 module.exports = {
 	get: id => {
 		return getQuote(id);
@@ -134,14 +127,10 @@ module.exports = {
 	randomID: () => {
 		return getRandomId();
 	},
-	random: () => {
-		return getRandomId().then(id => getQuote(id));
-	},
+	random,
 	latestID: () => {
 		return getLatestId();
 	},
-	latest: () => {
-		return getLatestId().then(id => getQuote(id));
-	},
+	latest,
 	search
 };
