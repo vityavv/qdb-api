@@ -50,12 +50,9 @@ function latest(count = 1) {
 function getLatestId() {
 	return getFirstId('http://bash.org/?latest');
 }
-/**
- *
- * @param {String} query The search word
- * @param {Number} sort 0 for score, 1 for number
- * @param {Number} count the amount of results to get (under 101)
- */
+function top(count = 1) {
+	return parseQuotes(count, 'http://bash.org/?top', 100);
+}
 function search(query, sort, count) {
 	let showcount = count;
 	if (count <= 10) count = 10;
@@ -134,5 +131,6 @@ module.exports = {
 		return getLatestId();
 	},
 	latest,
+	top,
 	search
 };
