@@ -69,6 +69,7 @@ function search(query, sort, count) {
 function parseQuotes(count, url, max) {
 	return new Promise((resolve, reject) => {
 		if (count > max) reject("You took too many!");
+		if (count < 1) reject("You can't get for 0 or less quotes");
 		get(url)
 			.then(response => {
 				const $ = cheerio.load(response);
