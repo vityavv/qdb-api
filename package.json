@@ -1,7 +1,7 @@
 {
 	"name": "qdb-api-plus",
 	"description": "A better API wrapper for Quote Database",
-	"version": "1.3.0",
+	"version": "1.3.1",
 	"main": "src/qdb-api.js",
 	"author": "Victor Veytsman",
 	"license": "MIT",
