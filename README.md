@@ -15,7 +15,7 @@ const qdb = require('qdb-api-plus')
 * qdb-api-plus doesn't use `axios`
 * qdb-api-plus has *slightly* better documentation
 * qdb-api-plus has a couple more methods like `latestID` and `randomID`
-* You can get the first search result with qdb-api-plus
+* You can search for any number of results under 100 with qdb-api-plus, instead of being constrained to 10, 25, 50, 75, or 100
 
 ## Methods available
 
