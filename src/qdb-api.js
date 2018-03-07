@@ -41,14 +41,8 @@ function getQuote(id) {
 function random(count = 1) {
 	return parseQuotes(count, 'http://bash.org/?random', 50);
 }
-function getRandomId() {
-	return getFirstId('http://bash.org/?random');
-}
 function latest(count = 1) {
 	return parseQuotes(count, 'http://bash.org/?latest', 50);
-}
-function getLatestId() {
-	return getFirstId('http://bash.org/?latest');
 }
 function top(count = 1) {
 	return parseQuotes(count, 'http://bash.org/?top', 100);
@@ -103,33 +97,11 @@ function parseQuotes(count, url, max) {
 			}).catch(reason => reject(reason));
 	});
 }
-function getFirstId(url) {
-	return new Promise((resolve, reject) => {
-		get(url)
-			.then(response => {
-				const $ = cheerio.load(response);
-
-				const id = $('.quote a b')
-					.first()
-					.text()
-					.substring(1);
-
-				resolve(id);
-			})
-			.catch(reason => reject(reason));
-	});
-}
 module.exports = {
 	get: id => {
 		return getQuote(id);
 	},
-	randomID: () => {
-		return getRandomId();
-	},
 	random,
-	latestID: () => {
-		return getLatestId();
-	},
 	latest,
 	top,
 	search
