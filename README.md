@@ -15,7 +15,8 @@ const qdb = require('qdb-api-plus')
 * qdb-api-plus doesn't use `axios`
 * qdb-api-plus has *slightly* better documentation
 * qdb-api-plus has a couple more methods like `latestID` and `randomID`
-* You can search for any number of results under 100 with qdb-api-plus, instead of being constrained to 10, 25, 50, 75, or 100
+* You can search for any number of results under 101 with qdb-api-plus, instead of being constrained to 10, 25, 50, 75, or 100
+* You can get any amount of latest/random quotes under 51 with qdb-api-plus, instead of just getting one
 
 ## Methods available
 
@@ -25,6 +26,13 @@ const qdb = require('qdb-api-plus')
 * Search for a quote
 
 ### Get a random quote
+
+**Parameters**
+
+* `count` (optional) - How many quotes to get
+
+**Returns** a quote if `count` is 1, and an array of quotes otherwise
+
 Example:
 ```Javascript
 qdb.random()
@@ -51,6 +59,13 @@ qdb.randomID()
 ```
 
 ### Get the latest quote
+
+**Parameters**
+
+* `count` (optional) - How many quotes to get
+
+**Returns** a quote if `count` is 1, and an array of quotes otherwise
+
 Example:
 ```Javascript
 qdb.latest()
@@ -100,7 +115,7 @@ qdb.get(4680)
 
 * `Search string`
 * `Sort by` - `0` for score, `1` for number
-* `Number of results` - `1`, `10`, `25`, `50`, `75`, or `100`
+* `Number of results` - Any number under 101
 
 **Returns** a quote if `Number of results` is 1, and an array of quotes otherwise
 
