@@ -54,7 +54,7 @@ function getLatestId() {
  *
  * @param {String} query The search word
  * @param {Number} sort 0 for score, 1 for number
- * @param {Number} count 1, 10, 25, 50, 75 or 100
+ * @param {Number} count the amount of results to get (under 101)
  */
 function search(query, sort, count) {
 	let showcount = count;
@@ -99,6 +99,7 @@ function parseQuotes(count, url, max) {
 							}
 						});
 					});
+					if (count === 1) resolve(quotes[0]);
 					resolve(quotes.slice(0, count));
 				}
 			}).catch(reason => reject(reason));
