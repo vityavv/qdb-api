@@ -80,11 +80,13 @@ function getLatestId() {
  */
 function search(query, sort, count) {
 	return new Promise((resolve, reject) => {
-		let showone = false;
-		if (count === 1) {
-			showone = true;
-			count = 10;
-		}
+		let showcount = count;
+		if (count <= 10) count = 10;
+		else if (count <= 25) count = 25;
+		else if (count <= 50) count = 50;
+		else if (count <= 75) count = 75;
+		else if (count <= 100) count = 100;
+		else reject("Too many to search");
 		get(`http://bash.org/?search=${query}&sort=${sort}&show=${count}`)
 			.then(response => {
 				const $ = cheerio.load(response);
@@ -118,8 +120,7 @@ function search(query, sort, count) {
 							}
 						});
 					});
-					if (showone) resolve(quotes[0]);
-					else resolve(quotes);
+					resolve(quotes.slice(0, showcount));
 				}
 			})
 			.catch(reason => reject(reason));
