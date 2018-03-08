@@ -46,18 +46,6 @@ qdb.random()
 	});
 ```
 
-### Get a random quote ID
-Example:
-```Javascript
-qdb.randomID()
-	.then(id => {
-		console.log(id);
-	})
-	.catch(reason => {
-		console.log(reason);
-	});
-```
-
 ### Get the latest quote
 
 **Parameters**
@@ -79,19 +67,8 @@ qdb.latest()
 	});
 ```
 
-### Get the latest quote ID
-Example:
-```Javascript
-qdb.latestID()
-	.then(id => {
-		console.log(id);
-	})
-	.catch(reason => {
-		console.log(reason);
-	});
-```
-
 ### Get a specific quote by its ID
+
 **Parameters**
 
 * `ID number`
