@@ -20,6 +20,7 @@ function get(options) {
 
 function getQuote(id) {
 	return new Promise((resolve, reject) => {
+		if (!id) reject("No ID provided");
 		get(`http://bash.org/?${id}`)
 			.then(response => {
 				const $ = cheerio.load(response);
@@ -37,7 +38,8 @@ function getQuote(id) {
 			.catch(reason => reject(reason));
 	});
 }
-function random(count = 1) {
+function random(count = 1, over0 = false) {
+	if (over0) return parseQuotes(count, 'http://bash.org/?random1', 50);
 	return parseQuotes(count, 'http://bash.org/?random', 50);
 }
 function latest(count = 1) {
@@ -46,14 +48,16 @@ function latest(count = 1) {
 function top(count = 1) {
 	return parseQuotes(count, 'http://bash.org/?top', 100);
 }
-function search(query, sort, count) {
+function search(query, count = 1, byNumber = false) {
 	let showcount = count;
 	if (count <= 10) count = 10;
 	else if (count <= 25) count = 25;
 	else if (count <= 50) count = 50;
 	else if (count <= 75) count = 75;
 	else if (count <= 100) count = 100;
-	return parseQuotes(count, `http://bash.org/?search=${query}&sort=${sort}&show=${count}`, 100);
+	let sort = 0;
+	if (byNumber) sort = 1;
+	return parseQuotes(showcount, `http://bash.org/?search=${query}&sort=${sort}&show=${count}`, 100);
 }
 
 function parseQuotes(count, url, max) {

@@ -20,96 +20,52 @@ const qdb = require('qdb-api-plus')
 
 ## Methods available
 
-* Get a random quote or a random ID
-* Get the latest quote or it's ID
-* Get specific quote by it's id
+* Get up to 50 random quotes at a time
+* Get up to 50 of the latest quotes
+* Get up to 100 of the top quotes
+* Get specific quote by its id
 * Search for a quote
 
-### Get a random quote
+### Examples of all of these methods can be found in [`src/examples.js`](src/examples.js)
 
-**Parameters**
+#### Quote object
+The quote object is returned by every method in this library and works like this:
 
-* `count` (optional) - How many quotes to get
-
-**Returns** a quote if `count` is 1, and an array of quotes otherwise
-
-Example:
-```Javascript
-qdb.random()
-	.then(quote => {
-		console.log(quote.id);
-		console.log(quote.score);
-		console.log(quote.text);
-	})
-	.catch(reason => {
-		console.log(reason);
-	});
+```JavaScript
+let quote = {
+	text: "The text of the quote",
+	id: "The ID of the quote",
+	score: "The score of the quote"
+};
 ```
 
-### Get the latest quote
+#### `qdb.random` - get random quotes
+* `[count = 1]` - The amount of quotes to return (max 50)
+* `[over0 = true]` - Whether to return only quotes that have a score greater than zero or not (basically whether to scrape `http://bash.org/?random` or `http://bash.org/?random1
 
-**Parameters**
+Returns a promise which resolves to a quote object if count is one, and an array of them otherwise
 
-* `count` (optional) - How many quotes to get
+#### `qdb.latest` - get the latest quotes
+* `[count = 1]` - The amount of quotes to return (max 50)
 
-**Returns** a quote if `count` is 1, and an array of quotes otherwise
+Returns a promise which resolves to a quote object if count is one, and an array of them otherwise
 
-Example:
-```Javascript
-qdb.latest()
-	.then(quote => {
-		console.log(quote.id);
-		console.log(quote.score);
-		console.log(quote.text);
-	})
-	.catch(reason => {
-		console.log(reason);
-	});
-```
+#### `qdb.top` - get the top quotes
+* `[count = 1]` - The amount of quotes to return (max 50)
 
-### Get a specific quote by its ID
+Returns a promise which resolves to a quote object if count is one, and an array of them otherwise
 
-**Parameters**
+#### `qdb.get` - get a quote from it's ID
+* `id` - The ID of the quote
 
-* `ID number`
+Returns a promise which resolves to a quote object
 
-Example:
-```Javascript
-qdb.get(4680)
-	.then(quote => {
-		console.log(quote.id);
-		console.log(quote.score);
-		console.log(quote.text);
-	})
-	.catch(reason => {
-		console.log(reason);
-	});
-```
+#### `qdb.search` - search for a quote
+* `query` - The search query
+* `[count = 1]` - The amount of quotes to return (max 100)
+* `[byNumber = false]` - Whether to sort by ID number or by votes
 
-### Search for a quote
-
-**Parameters**
-
-* `Search string`
-* `Sort by` - `0` for score, `1` for number
-* `Number of results` - Any number under 101
-
-**Returns** a quote if `Number of results` is 1, and an array of quotes otherwise
-
-Example:
-```Javascript
-qdb.search('tom', 0, 10)
-	.then(quotes => {
-		quotes.forEach(quote => {
-			console.log(quote.id);
-			console.log(quote.score);
-			console.log(quote.text);
-		});
-	})
-	.catch(reason => {
-		console.log(reason);
-	});
-```
+Returns a promise which resolves to a quote object if count is one, and an array of them otherwise
 
 ## How it works
 First, the program gets a specific bash.org website:
