@@ -14,7 +14,6 @@ const qdb = require('qdb-api-plus')
 
 * qdb-api-plus doesn't use `axios`
 * qdb-api-plus has *slightly* better documentation
-* qdb-api-plus has a couple more methods like `latestID` and `randomID`
 * You can search for any number of results under 101 with qdb-api-plus, instead of being constrained to 10, 25, 50, 75, or 100
 * You can get any amount of latest/random quotes under 51 with qdb-api-plus, instead of just getting one
 
