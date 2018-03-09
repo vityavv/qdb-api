@@ -1,5 +1,7 @@
 # qdb-api-plus
 
+[![NPM](https://nodei.co/npm/qdb-api-plus.png?compact=true)](https://nodei.co/npm/qdb-api-plus/)
+
 A better API wrapper for [Quote Database](http://bash.org/). Fork of [qdb-api](https://github.com/MarkNjunge/qdb-api).
 
 Looking for a REST API? See [qdb-rest-api](https://github.com/MarkNjunge/qdb-rest-api)
