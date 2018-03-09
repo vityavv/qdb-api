@@ -40,7 +40,7 @@ let quote = {
 
 #### `qdb.random` - get random quotes
 * `[count = 1]` - The amount of quotes to return (max 50)
-* `[over0 = true]` - Whether to return only quotes that have a score greater than zero or not (basically whether to scrape `http://bash.org/?random` or `http://bash.org/?random1
+* `[over0 = true]` - Whether to return only quotes that have a score greater than zero or not (basically whether to scrape `http://bash.org/?random` or `http://bash.org/?random1`)
 
 Returns a promise which resolves to a quote object if count is one, and an array of them otherwise
 
@@ -70,9 +70,10 @@ Returns a promise which resolves to a quote object if count is one, and an array
 First, the program gets a specific bash.org website:
 
 ```Javascript
-`http://bash.org/?${id}` //Get specific ID
-'http://bash.org/?latest' //Latest quote/ID
-'http://bash.org/?random' //Random quote/ID
+`http://bash.org/?${id}` //Get quote from specific ID
+'http://bash.org/?latest' //Latest quote(s)
+'http://bash.org/?random' //Random quote(s)
+'http://bash.org/?top' //Top quote(s)
 `http://bash.org/?search=${query}&sort=${sort}&show=${count}` //Search
 ```
 
