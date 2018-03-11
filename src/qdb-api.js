@@ -25,6 +25,9 @@ function getQuote(id) {
 			.then(response => {
 				const $ = cheerio.load(response);
 
+				if ($('center font').text().includes('not exist')) {
+					reject("That quote does not exist");
+				}
 				const quote = {
 					id: $('.quote a b')
 						.text()
@@ -69,11 +72,7 @@ function parseQuotes(count, url, max) {
 				const $ = cheerio.load(response);
 
 				const quotes = [];
-				if (
-					$('center font')
-						.text()
-						.includes('No results')
-				) {
+				if ($('center font').text().includes('No results')) {
 					reject('No results returned.');
 				} else {
 					$('.quote a b').each((i, element) => {
